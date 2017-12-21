@@ -37,7 +37,7 @@ def command(host):
             if re.search(host, line[0]):
                 ip=line[1].strip().replace("ansible_ssh_host=","")
                 port = line[2].strip().replace("ansible_ssh_port=", "")
-                return "ssh -p{port} root@{ip}".format(port=port,ip=ip)
+                return "sudo ssh -p{port} root@{ip}".format(port=port,ip=ip)
 
 
 def connect_ssh(host):
