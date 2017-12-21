@@ -31,13 +31,11 @@ def fetch_line():
 
 def command(host):
     host = str(host).replace("[", "").replace("'","").replace("]","")
-    for lines in cat_hosts_file:
-        line = lines.split()
-        if len(line) > 0 and re.match( "^#", line[0]) is None :
-            if re.search(host, line[0]):
-                ip=line[1].strip().replace("ansible_ssh_host=","")
-                port = line[2].strip().replace("ansible_ssh_port=", "")
-                return "sudo ssh -p{port} root@{ip}".format(port=port,ip=ip)
+    for line in fetch_line():
+        if re.search(host, line[0]):
+            ip=line[1].strip().replace("ansible_ssh_host=","")
+            port = line[2].strip().replace("ansible_ssh_port=", "")
+            return "sudo ssh -p{port} root@{ip}".format(port=port,ip=ip)
 
 
 def connect_ssh(host):
